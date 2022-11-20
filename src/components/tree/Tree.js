@@ -17,7 +17,7 @@ function Tree({imagesCategory, path, changeList, isActiveList, changeRoot,  isAc
             <ul> {categoryes.map((obj)=>
             <li key={obj.value} categid={obj} className={isActiveRoot?null:'hidden'} onClick={changeList}>{obj}
               <ul>{thumbnailImages.map((obj1,index)=>
-                obj1.category==obj?<li key={obj1.filesize.value} cardid={obj1.category} className={isActiveList?'hidden':null}><img className='thumbnail' src={path+obj1.image} onClick={onClickCard} data-obj-id={index}></img></li>:null)}
+                obj1.category==obj?<li key={obj1.filesize.value} cardid={obj1.category} className={isActiveList?'hidden':'list__style'}><img className='thumbnail' src={path+obj1.image} onClick={onClickCard} data-obj-id={index}></img></li>:null)}
               </ul>
             </li>)}
             </ul>

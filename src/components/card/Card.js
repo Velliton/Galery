@@ -1,11 +1,15 @@
 import dayjs from "dayjs";
 import React from "react";
 import "./card.scss"
-import closeImg from "../../assets/close.png" 
+
 
 function Card({remove, path, image, size, time, category, loading}) {
     return (        
         <div className="image__card">
+            <div className="close__image">
+                <img src="./img/cancelcard.png" width="50px"  onClick={()=>remove(image)} ></img>
+            </div>
+            
             <div className="img__card_container align">
                 <img className="image" src={path+image}></img>
             </div>
@@ -15,7 +19,7 @@ function Card({remove, path, image, size, time, category, loading}) {
                 <p className="image__card-text">Дата: {dayjs(time).format('YYYY-MM-DD')}</p>
                 <p className="image__card-text">Категория: {category}</p>
             </div>
-            <img src={closeImg} className="close__image" onClick={()=>remove(image)} ></img>
+            
             
         </div>       
     );

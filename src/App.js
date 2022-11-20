@@ -139,10 +139,8 @@ const handlePageClick=(event)=>{
   
   const onCardClickHandler=(e)=>{
     const indexCard = e.currentTarget.getAttribute("data-obj-id");
-    const inddd=e.currentTarget;
     setModalActive(true);
     setImageActiv(images[indexCard]);
-    console.log(images[indexCard])
   }
 
 
@@ -207,8 +205,6 @@ const handlePageClick=(event)=>{
           </div>
             :null
           }
-
-
 
     {
       viewType === 'tree' ?

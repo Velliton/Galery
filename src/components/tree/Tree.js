@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-function Tree({imagesCategory, path, changeList, isActiveList, changeRoot,  isActiveRoot}) {
+function Tree({imagesCategory, path, changeList, isActiveList, changeRoot,  isActiveRoot, onClickCard}) {
 
   let entireObj=Object.entries(imagesCategory);
 
@@ -16,8 +16,8 @@ function Tree({imagesCategory, path, changeList, isActiveList, changeRoot,  isAc
           <li key={path} onClick={changeRoot}>Root
             <ul> {categoryes.map((obj)=>
             <li key={obj.value} categid={obj} className={isActiveRoot?null:'hidden'} onClick={changeList}>{obj}
-              <ul>{thumbnailImages.map((obj1)=>
-                obj1.category==obj?<li key={obj1.filesize.value} cardid={obj1.category} className={isActiveList?'hidden':null}><img className='thumbnail' src={path+obj1.image}></img></li>:null)}
+              <ul>{thumbnailImages.map((obj1,index)=>
+                obj1.category==obj?<li key={obj1.filesize.value} cardid={obj1.category} className={isActiveList?'hidden':null}><img className='thumbnail' src={path+obj1.image} onClick={onClickCard} data-obj-id={index}></img></li>:null)}
               </ul>
             </li>)}
             </ul>

@@ -32,17 +32,16 @@ function App() {
   const [modalActive, setModalActive]=useState(false);
   const [isActiveList,setIsActiveList]=useState(false);
   const [isActiveRoot,setIsActiveRoot]=useState(false);
-  const [isActiveIMage, setIsActiveImage]=useState(false);
+  const [imageActive, setImageActiv]=useState();
 
 
 
-  /* стейты для пагинации */
   const [currentImg, setcurrentImg] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const imgPerPage=10;
+  const imgPerPage=100;
 
-  /* стейты для пагинации */
+  
 
 
 
@@ -50,7 +49,6 @@ useEffect(()=>{
   const endOffset = itemOffset+imgPerPage;
   setcurrentImg(images.slice(itemOffset,endOffset));
   setPageCount(Math.ceil(images.length/imgPerPage));
- 
 },[itemOffset, imgPerPage, images])
 
 const handlePageClick=(event)=>{
@@ -139,16 +137,30 @@ const handlePageClick=(event)=>{
     return <Loader/>
   }
   
+  const onCardClickHandler=(e)=>{
+    const indexCard = e.currentTarget.getAttribute("data-obj-id");
+    const inddd=e.currentTarget;
+    setModalActive(true);
+    setImageActiv(images[indexCard]);
+    console.log(images[indexCard])
+  }
+
+
+
   return (
     <div className="App">
       <header className="image__header">
-        <button onClick={clear}>сбросспппппппппппппппппс</button>
+       
       </header>
       <main className='image__main'>          
         <div className="image__view">
           <label className="image__label"><input className="image__input" type='radio' name="viewType" checked={viewType === 'card'} value="card" onChange={changeView}></input>Карточки</label>
           <label className="image__label"><input className="image__input" type='radio' name="viewType" checked={viewType === 'tree'} value="tree" onChange={changeView}></input>Древовидный список</label>
         </div>
+        {viewType === 'card' ? <div className="image__clear btn third">
+          <a onClick={clear}>сброс</a>
+        </div>:null}
+       
         {viewType === 'card' ?
         <div className="image__sort">
           <p className="image__sort-title">Сортировка:</p>
@@ -177,23 +189,32 @@ const handlePageClick=(event)=>{
               ) 
               : null
           }
-          {
+          
+
+
+        </div>
+        {
             viewType === 'card' ? 
-            <ReactPaginate
-              onPageChange={handlePageClick}
-              pageRangeDisplayed={5}
-              pageCount={pageCount}
-            />
+            <div className="pag"> 
+              <ReactPaginate
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={3}
+                pageCount={pageCount}
+                containerClassName="pagination"
+                pageLinkClassName="page-num"
+                activeClassName="active"
+              />
+          </div>
             :null
           }
 
 
-        </div>
+
     {
       viewType === 'tree' ?
         <div className="image__tree">
           <Tree
-            
+            onClickCard={onCardClickHandler}
             imagesCategory={imagesCategory}
             path={apiUrl}
             setIsActiveList={setIsActiveList}
@@ -205,8 +226,18 @@ const handlePageClick=(event)=>{
           />
         </div> 
       : null
+      
     }
-      <Popup/>
+    {
+      viewType === 'tree' ?
+      <Popup
+      images={images}
+      path={apiUrl}
+      modalActive={modalActive}
+      setModalActive={setModalActive}
+      item={imageActive}
+      />:null
+    }
       </main>
       <footer className='image__footer'>
       </footer>      

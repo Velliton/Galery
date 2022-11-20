@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import React from "react";
+import "./card.scss"
 import closeImg from "../../assets/close.png" 
 
 function Card({remove, path, image, size, time, category, loading}) {
